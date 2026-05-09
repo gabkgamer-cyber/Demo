@@ -1,16 +1,19 @@
 <!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
 
-<!-- FIX AUTO ZOOM MOBILE -->
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta charset="UTF-8">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+/>
 
 <title>GGFliy TV VIP</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.compiled.js"></script>
@@ -21,147 +24,175 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 -webkit-tap-highlight-color:transparent;
 }
 
 html{
 scroll-behavior:smooth;
-touch-action:manipulation;
 }
 
 body{
-font-family:'Poppins',sans-serif;
 background:#050816;
 color:white;
 overflow-x:hidden;
 min-height:100vh;
 }
 
-/* BACKGROUND */
+/* LOADING */
 
-.bg{
+#loading{
 position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top left,#0066ff55,transparent 35%),
-radial-gradient(circle at bottom right,#00ccff33,transparent 30%),
-#050816;
-z-index:-1;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(
+180deg,
+#030712,
+#071129,
+#0a1c40
+);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:99999;
+transition:.5s;
+}
+
+.gg-logo{
+width:120px;
+height:120px;
+border-radius:50%;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:42px;
+font-weight:700;
+color:#4da3ff;
+border:2px solid rgba(77,163,255,.4);
+box-shadow:
+0 0 30px rgba(77,163,255,.4),
+0 0 60px rgba(77,163,255,.2);
+animation:pulse 2s infinite;
+}
+
+.loading-text{
+margin-top:20px;
+font-size:14px;
+color:#8bbcff;
+letter-spacing:3px;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.08);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+/* APP */
+
+.app{
+padding:16px;
 }
 
 /* HEADER */
 
 .header{
-position:sticky;
-top:0;
-z-index:999;
-padding:15px;
-backdrop-filter:blur(25px);
-background:rgba(10,15,35,.55);
-border-bottom:1px solid rgba(255,255,255,.08);
 display:flex;
 justify-content:space-between;
 align-items:center;
+margin-bottom:20px;
 }
 
-.logo{
-font-size:24px;
+.title{
+font-size:28px;
 font-weight:700;
-background:linear-gradient(90deg,#00aeff,#ffffff);
+background:linear-gradient(
+90deg,
+#4da3ff,
+#ffffff
+);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-.theme-btn{
-width:45px;
-height:45px;
+.theme-toggle{
+width:50px;
+height:50px;
 border-radius:50%;
-border:none;
 background:rgba(255,255,255,.08);
-color:white;
-font-size:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
 backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.1);
 cursor:pointer;
 }
 
 /* PLAYER */
 
-.player-wrap{
-padding:14px;
-}
-
 .player-box{
 position:relative;
+width:100%;
+border-radius:25px;
 overflow:hidden;
-border-radius:28px;
-background:rgba(255,255,255,.08);
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
 box-shadow:
-0 0 25px #008cff44,
-0 0 80px #0066ff22;
+0 0 30px rgba(0,140,255,.15);
+margin-bottom:20px;
 }
 
 video{
 width:100%;
-height:220px;
+height:230px;
 background:black;
-display:block;
 outline:none;
-border:none;
-}
-
-/* LIVE BADGE */
-
-.live{
-position:absolute;
-top:12px;
-left:12px;
-padding:6px 14px;
-border-radius:999px;
-background:red;
-font-size:12px;
-font-weight:700;
-animation:pulse 1s infinite;
-z-index:5;
-}
-
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.08);}
-100%{transform:scale(1);}
 }
 
 /* SEARCH */
 
-.search-wrap{
-padding:0 14px 12px;
+.search-box{
+margin-bottom:15px;
 }
 
-.search{
+.search-box input{
 width:100%;
-padding:15px 18px;
+padding:15px;
 border:none;
 outline:none;
 border-radius:18px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(18px);
+background:rgba(255,255,255,.07);
+backdrop-filter:blur(20px);
 color:white;
 font-size:15px;
 border:1px solid rgba(255,255,255,.08);
 }
 
-.search::placeholder{
-color:#cfcfcf;
-}
-
-/* CATEGORY */
+/* CATEGORIES */
 
 .categories{
 display:flex;
 gap:10px;
 overflow-x:auto;
-padding:0 14px 15px;
+padding-bottom:10px;
+margin-bottom:18px;
 scrollbar-width:none;
 }
 
@@ -169,198 +200,268 @@ scrollbar-width:none;
 display:none;
 }
 
-.categories button{
-flex:none;
+.category-btn{
 border:none;
-padding:11px 20px;
-border-radius:999px;
-background:rgba(255,255,255,.08);
+padding:12px 18px;
+border-radius:14px;
+background:rgba(255,255,255,.07);
 color:white;
-font-weight:600;
+font-size:14px;
+font-weight:500;
+backdrop-filter:blur(20px);
 cursor:pointer;
-transition:.25s;
+transition:.3s;
+white-space:nowrap;
 }
 
-.categories button.active{
-background:linear-gradient(90deg,#0099ff,#0055ff);
-box-shadow:0 0 20px #008cff88;
+.category-btn.active{
+background:linear-gradient(
+90deg,
+#007bff,
+#4da3ff
+);
+box-shadow:
+0 0 20px rgba(0,123,255,.5);
 }
 
 /* CHANNELS */
 
 .channels{
-padding:0 14px 100px;
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
+grid-template-columns:repeat(
+auto-fill,
+minmax(160px,1fr)
+);
+gap:15px;
+padding-bottom:50px;
 }
 
 .card{
 position:relative;
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.08);
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(20px);
 border-radius:24px;
-overflow:hidden;
-backdrop-filter:blur(20px);
-transition:.2s;
+padding:15px;
+border:1px solid rgba(255,255,255,.08);
 cursor:pointer;
-user-select:none;
+transition:.3s;
+overflow:hidden;
 }
 
-.card:active{
-transform:scale(.96);
+.card:hover{
+transform:translateY(-5px);
+box-shadow:
+0 0 30px rgba(0,123,255,.3);
 }
 
-.card img{
+.logo{
 width:100%;
-height:110px;
-object-fit:cover;
-display:block;
-pointer-events:none;
+height:90px;
+object-fit:contain;
+border-radius:18px;
+background:white;
+padding:8px;
+margin-bottom:10px;
 }
 
-.channel-name{
-padding:12px;
-font-size:14px;
+.info h3{
+font-size:15px;
+margin-bottom:4px;
+}
+
+.info p{
+font-size:12px;
+color:#9bbcff;
+}
+
+.live-badge{
+position:absolute;
+top:12px;
+right:12px;
+background:red;
+padding:4px 10px;
+border-radius:20px;
+font-size:10px;
 font-weight:600;
-}
-
-/* LOADING */
-
-.loader{
-position:fixed;
-inset:0;
-background:#050816;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:99999;
-transition:.4s;
-}
-
-.loader-circle{
-width:70px;
-height:70px;
-border-radius:50%;
-border:5px solid rgba(255,255,255,.1);
-border-top:5px solid #00aaff;
-animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-100%{
-transform:rotate(360deg);
-}
-}
-
-/* STATUS */
-
-.status{
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-padding:12px 20px;
-border-radius:14px;
-background:rgba(0,0,0,.75);
-backdrop-filter:blur(20px);
-font-size:14px;
-display:none;
-z-index:9999;
+box-shadow:
+0 0 15px rgba(255,0,0,.5);
 }
 
 /* LIGHT MODE */
 
-.light{
-background:#f5f8ff;
+body.light{
+background:#eef4ff;
 color:#111;
 }
 
-.light .header,
-.light .player-box,
-.light .card,
-.light .search,
-.light .categories button{
+body.light .card,
+body.light .player-box,
+body.light .search-box input,
+body.light .theme-toggle,
+body.light .category-btn{
 background:rgba(255,255,255,.7);
 color:#111;
 }
 
-.light .search::placeholder{
-color:#555;
+body.light .info p{
+color:#333;
+}
+
+body.light .category-btn.active{
+color:white;
+}
+
+/* FULLSCREEN BUTTON */
+
+.full-btn{
+position:absolute;
+bottom:15px;
+right:15px;
+background:rgba(0,0,0,.5);
+border:none;
+color:white;
+padding:10px 14px;
+border-radius:12px;
+cursor:pointer;
+backdrop-filter:blur(10px);
 }
 
 </style>
+
 </head>
+
 <body>
 
-<div class="bg"></div>
+<!-- LOADING -->
 
-<!-- LOADER -->
-<div class="loader" id="loader">
-<div class="loader-circle"></div>
+<div id="loading">
+
+<div class="gg-logo">
+GGFliy
 </div>
 
-<!-- HEADER -->
+<div class="loading-text">
+LOADING GGFliy TV APP
+</div>
+
+</div>
+
+<!-- APP -->
+
+<div class="app">
+
 <div class="header">
 
-<div class="logo">
-GGFliy TV VIP
+<div class="title">
+GGFliy TV
 </div>
 
-<button class="theme-btn"
-id="themeBtn">
-🌙
-</button>
+<div
+class="theme-toggle"
+id="themeToggle"
+>
+B
+</div>
 
 </div>
 
 <!-- PLAYER -->
-<div class="player-wrap">
 
 <div class="player-box">
-
-<div class="live">
-LIVE
-</div>
 
 <video
 id="video"
 controls
 autoplay
 playsinline
-webkit-playsinline>
-</video>
+></video>
 
-</div>
+<button
+class="full-btn"
+onclick="openFullscreen()"
+>
+⛶
+</button>
 
 </div>
 
 <!-- SEARCH -->
-<div class="search-wrap">
+
+<div class="search-box">
 
 <input
 type="text"
-class="search"
-id="searchInput"
-placeholder="Search channels...">
+id="search"
+placeholder="Search channels..."
+>
 
 </div>
 
-<!-- CATEGORY -->
-<div class="categories"
-id="categories">
-</div>
+<!-- CATEGORIES -->
+
+<div
+class="categories"
+id="categories"
+></div>
 
 <!-- CHANNELS -->
-<div class="channels"
-id="channels">
+
+<div
+class="channels"
+id="channels"
+></div>
+
 </div>
 
-<!-- STATUS -->
-<div class="status"
-id="status">
-Loading...
-</div>
+<script>
+
+/* THEME */
+
+const toggle =
+document.getElementById(
+"themeToggle"
+);
+
+toggle.onclick = ()=>{
+
+document.body.classList.toggle(
+"light"
+);
+
+if(
+document.body.classList.contains(
+"light"
+)
+){
+
+toggle.innerHTML  = "B";
+
+}else{
+
+toggle.innerHTML = "W";
+
+}
+
+};
+
+/* FULLSCREEN */
+
+function openFullscreen(){
+
+const video =
+document.getElementById(
+"video"
+);
+
+if(video.requestFullscreen){
+
+video.requestFullscreen();
+
+}
+
+}
+
+</script>
 
 <script src="script.js"></script>
 
