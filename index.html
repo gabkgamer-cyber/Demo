@@ -1,5 +1,5 @@
 <!-- index.html -->
-<!-- FULL OLD + NEW FILE FIXED -->
+<!-- FULL OLD + NEW FILE MERGED -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +31,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 --white:#ffffff;
 --black:#000000;
 --dark:#020617;
+--red:#ef4444;
 }
 
 *{
@@ -59,6 +60,196 @@ overflow-x:hidden;
 min-height:100vh;
 transition:.4s;
 
+}
+
+/* TOP BAR */
+
+.top-bar{
+position:sticky;
+top:0;
+z-index:9998;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:10px 15px;
+
+background:rgba(2,6,23,.85);
+backdrop-filter:blur(20px);
+
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.top-left{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.live-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#ff0000;
+
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+50%{
+transform:scale(1.5);
+opacity:.5;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+.live-top-badge{
+
+padding:7px 14px;
+
+border-radius:20px;
+
+font-size:12px;
+font-weight:700;
+
+background:
+linear-gradient(
+90deg,
+#ef4444,
+#facc15
+);
+
+color:black;
+
+box-shadow:
+0 0 15px rgba(239,68,68,.5);
+
+}
+
+.time-box{
+font-size:13px;
+font-weight:600;
+color:#dbeafe;
+text-align:right;
+}
+
+.ping-box{
+font-size:12px;
+color:#86efac;
+margin-top:2px;
+}
+
+/* PULL TO REFRESH */
+
+.pull-refresh{
+position:fixed;
+top:-60px;
+left:50%;
+transform:translateX(-50%);
+
+padding:12px 18px;
+
+background:rgba(15,23,42,.95);
+
+border-radius:18px;
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+font-size:14px;
+font-weight:700;
+
+z-index:99999;
+
+transition:.4s;
+}
+
+.pull-refresh.show{
+top:15px;
+}
+
+/* MINI POPUP VIDEO */
+
+.mini-player{
+position:fixed;
+bottom:20px;
+right:15px;
+
+width:220px;
+height:130px;
+
+background:#000;
+
+border-radius:18px;
+
+overflow:hidden;
+
+z-index:99999;
+
+display:none;
+
+box-shadow:
+0 0 30px rgba(0,0,0,.5);
+
+border:1px solid rgba(255,255,255,.1);
+}
+
+.mini-player.active{
+display:block;
+animation:miniShow .4s ease;
+}
+
+@keyframes miniShow{
+
+0%{
+transform:scale(.7);
+opacity:0;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+.mini-player video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.close-mini{
+position:absolute;
+top:6px;
+right:6px;
+
+width:24px;
+height:24px;
+
+border:none;
+border-radius:50%;
+
+background:rgba(0,0,0,.6);
+
+color:white;
+font-size:13px;
+
+cursor:pointer;
+z-index:2;
 }
 
 /* SMOOTH */
@@ -745,7 +936,7 @@ repeat(auto-fill,minmax(160px,1fr));
 
 gap:18px;
 
-padding-bottom:50px;
+padding-bottom:120px;
 }
 
 .card{
@@ -840,6 +1031,11 @@ height:145px;
 font-size:42px;
 }
 
+.mini-player{
+width:180px;
+height:105px;
+}
+
 }
 
 </style>
@@ -847,6 +1043,55 @@ font-size:42px;
 </head>
 
 <body>
+
+<!-- PULL REFRESH -->
+
+<div class="pull-refresh" id="pullRefresh">
+🔄 Refreshing...
+</div>
+
+<!-- TOP BAR -->
+
+<div class="top-bar">
+
+<div class="top-left">
+
+<div class="live-dot"></div>
+
+<div class="live-top-badge">
+LIVE TV
+</div>
+
+</div>
+
+<div class="time-box">
+
+<div id="liveTime">00:00:00</div>
+
+<div class="ping-box" id="pingMs">
+📶 0ms
+</div>
+
+</div>
+
+</div>
+
+<!-- MINI PLAYER -->
+
+<div class="mini-player" id="miniPlayer">
+
+<button class="close-mini" onclick="closeMiniPlayer()">
+✕
+</button>
+
+<video
+id="miniVideo"
+muted
+autoplay
+playsinline
+></video>
+
+</div>
 
 <!-- LOADING -->
 
@@ -947,7 +1192,7 @@ GGFliy TV
 
 </div>
 
-<div class="player-box">
+<div class="player-box" id="playerBox">
 
 <video
 id="video"
@@ -983,6 +1228,88 @@ placeholder="Search premium channels..."
 
 <script>
 
+/* LIVE TIME */
+
+function updateClock(){
+
+const now = new Date();
+
+const time =
+now.toLocaleTimeString();
+
+const date =
+now.toLocaleDateString();
+
+document.getElementById(
+"liveTime"
+).innerHTML =
+time + "<br>" + date;
+
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+/* PING */
+
+function updatePing(){
+
+const ping =
+Math.floor(Math.random()*40)+10;
+
+document.getElementById(
+"pingMs"
+).innerHTML =
+"📶 " + ping + "ms";
+
+}
+
+setInterval(updatePing,2000);
+updatePing();
+
+/* PULL TO REFRESH */
+
+let startY = 0;
+
+window.addEventListener(
+"touchstart",
+e=>{
+
+startY = e.touches[0].pageY;
+
+}
+);
+
+window.addEventListener(
+"touchmove",
+e=>{
+
+const currentY =
+e.touches[0].pageY;
+
+if(
+window.scrollY === 0 &&
+currentY - startY > 120
+){
+
+const refresh =
+document.getElementById(
+"pullRefresh"
+);
+
+refresh.classList.add("show");
+
+setTimeout(()=>{
+
+location.reload();
+
+},1000);
+
+}
+
+}
+);
+
 /* LOADING */
 
 let percent = 0;
@@ -1011,7 +1338,7 @@ clearInterval(interval);
 
 setTimeout(()=>{
 
-loading.style.opacity = "0";
+loading.style.opacity = "10";
 
 loading.style.transform =
 "scale(1.1)";
@@ -1103,6 +1430,57 @@ if(video.requestFullscreen){
 video.requestFullscreen();
 
 }
+
+}
+
+/* MINI PLAYER */
+
+const mainVideo =
+document.getElementById("video");
+
+const miniVideo =
+document.getElementById("miniVideo");
+
+const miniPlayer =
+document.getElementById("miniPlayer");
+
+window.addEventListener(
+"scroll",
+()=>{
+
+const playerBox =
+document.getElementById(
+"playerBox"
+);
+
+const rect =
+playerBox.getBoundingClientRect();
+
+if(rect.bottom < 0){
+
+miniPlayer.classList.add(
+"active"
+);
+
+miniVideo.src =
+mainVideo.currentSrc;
+
+}else{
+
+miniPlayer.classList.remove(
+"active"
+);
+
+}
+
+}
+);
+
+function closeMiniPlayer(){
+
+miniPlayer.classList.remove(
+"active"
+);
 
 }
 

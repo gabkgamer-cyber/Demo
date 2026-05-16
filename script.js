@@ -48,7 +48,7 @@ clearKey:{
 category:"Sports"
 },
 
-/* 🔥 NEW ADDED (NO DELETE) */
+/* NEW ADDED CHANNEL */
 
 {
 name: 'Disney Channel',
@@ -59,11 +59,13 @@ category: "Kids"
 },
 
 {
-name: 'ESPN',
-logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/1280px-ESPN_wordmark.svg.png',
-type: 'hls',
-manifestUri: 'https://d8cb436235c5e83efa52e9abcc1a2dab.livehwc4.com/nami.videobss.com/live/hd-en-2-3919010.m3u8?sub_m3u8=true&edge_slice=true&user_session_id=2b7121ace37d544d',
-category: "Sports"
+  name: 'ESPN',
+  logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/1280px-ESPN_wordmark.svg.png',
+  type: 'hls',
+  manifestUri: 'https://k1.thetvapp.to/hls/ESPN/tracks-v1a1/mono.m3u8?token=RicbQMM67PcUm6KCDuUWCQ&expires=1778740782&user_id=MTI0LjIxNy4zLjg2',
+  clearKey: 
+    'test',
+  category: 'Sports'
 },
 
 {
@@ -878,6 +880,30 @@ clearKey:{
 },
 category:"Sports"
 }, 
+
+ {
+ name: 'Test Stream',
+ logo: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Test-Logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original',
+ type: 'hls',
+ manifestUri: 'https://c0c65b821b3542c3a4dca92702f59944.mediatailor.us-east-1.amazonaws.com/v1/master/04fd913bb278d8775298c26fdca9d9841f37601f/RakutenTV-eu_BabySharkTV/playlist.m3u8',
+ category: "Kids"
+},
+
+ {
+      name: 'Test Stream',
+  logo: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Test-Logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original',
+  type: 'hls',
+  manifestUri: 'https://linear-899.frequency.stream/dist/cineverse/899/hls/master/playlist.m3u8',
+  category: "Local"
+},
+
+ {
+      name: 'Test Stream',
+  logo: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Test-Logo.svg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original',
+  type: 'hls',
+  manifestUri: 'https://dvu7aia8rjlfm.cloudfront.net/master.m3u8',
+  category: "Local"
+},
 
 /* NEWS */
 
